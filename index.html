@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Jroom by justinzzc</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Jroom</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/justinzzc/jRoom" class="btn">View on GitHub</a>
+      <a href="https://github.com/justinzzc/jRoom/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/justinzzc/jRoom/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="jroom" class="anchor" href="#jroom" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>jRoom</h1>
+
+<p>A jquery plugin to create a 3d Room
+一个可以创建3d房间的jquery插件</p>
+
+<blockquote>
+<p>只需添加一行js脚本就可以创建出一个可以拖动旋转的3d房间.
+<a href="https://justinzzc.github.io/jRoom/">https://justinzzc.github.io/jRoom/</a></p>
+</blockquote>
+
+<h2>
+<a id="用法" class="anchor" href="#%E7%94%A8%E6%B3%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>用法</h2>
+
+<h3>
+<a id="基本使用方法" class="anchor" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>基本使用方法</h3>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">head</span>&gt;
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>jquery.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    &lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>../dist/jRoom.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</span>
+&lt;/<span class="pl-ent">head</span>&gt;
+
+&lt;<span class="pl-ent">body</span>&gt;
+...
+
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>room<span class="pl-pds">"</span></span>&gt;
+
+&lt;/<span class="pl-ent">div</span>&gt;
+...
+
+<span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1">    <span class="pl-en">$</span>(<span class="pl-k">function</span>(){</span>
+<span class="pl-s1">       <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">'</span>.room<span class="pl-pds">'</span></span>).<span class="pl-en">jRoom</span>({</span>
+<span class="pl-s1">           wallWidth<span class="pl-k">:</span><span class="pl-c1">635</span>,</span>
+<span class="pl-s1">           wallHeight<span class="pl-k">:</span><span class="pl-c1">664</span>,</span>
+<span class="pl-s1">           cube<span class="pl-k">:</span>{</span>
+<span class="pl-s1">               back<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>a/back.jpg<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">               front<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>a/front.jpg<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">               left<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>a/left.jpg<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">               right<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>a/right.jpg<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">               top<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>#90c0c0<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">               bottom<span class="pl-k">:</span><span class="pl-s"><span class="pl-pds">'</span>#9f5d3b<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">           },</span>
+<span class="pl-s1">           perspectiveRate<span class="pl-k">:</span><span class="pl-c1">1.21</span></span>
+<span class="pl-s1">       });</span>
+<span class="pl-s1">    });</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span>
+&lt;/<span class="pl-ent">body</span>&gt;
+</pre></div>
+
+<h2>
+<a id="配置项" class="anchor" href="#%E9%85%8D%E7%BD%AE%E9%A1%B9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配置项</h2>
+
+<ul>
+<li>可用配置项
+
+<ul>
+<li>墙纸宽度 wallWidth , 墙纸高度 wallHeight</li>
+<li>立方体背景配置 cube</li>
+<li>墙面附加物配置 attach</li>
+<li>立方体class名称 cubeClass</li>
+<li>视角调整比例 perspectiveRate</li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<a id="默认配置" class="anchor" href="#%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>默认配置</h3>
+
+<div class="highlight highlight-source-js"><pre>{
+    wallWidth<span class="pl-k">:</span> <span class="pl-c1">300</span>,
+    wallHeight<span class="pl-k">:</span> <span class="pl-c1">300</span>,
+    cube<span class="pl-k">:</span> {
+        front<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>white<span class="pl-pds">'</span></span>,
+        back<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>white<span class="pl-pds">'</span></span>,
+        left<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#d3d3d3<span class="pl-pds">'</span></span>,
+        right<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#d3d3d3<span class="pl-pds">'</span></span>,
+        top<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#f3f3f3<span class="pl-pds">'</span></span>,
+        bottom<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#ddd<span class="pl-pds">'</span></span>
+    },
+    attach<span class="pl-k">:</span> {
+        front<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+        back<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+        left<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+        right<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+        top<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,
+        bottom<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>
+    },
+    cubeClass<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>room-cube<span class="pl-pds">'</span></span>,
+    perspectiveRate<span class="pl-k">:</span> <span class="pl-c1">1</span>,
+    viewLimit<span class="pl-k">:</span> {
+        xMin<span class="pl-k">:</span> <span class="pl-k">-</span><span class="pl-c1">15</span>,
+        xMax<span class="pl-k">:</span> <span class="pl-c1">15</span>,
+        yMin<span class="pl-k">:</span> <span class="pl-k">-</span><span class="pl-c1">360</span>,
+        yMax<span class="pl-k">:</span> <span class="pl-c1">360</span>
+    }
+}</pre></div>
+
+<p>详细请查看 
+<a href="./demo/test1.html">demo页面</a>
+<a href="./demo/test2.html">demo页面2</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/justinzzc/jRoom">Jroom</a> is maintained by <a href="https://github.com/justinzzc">justinzzc</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
