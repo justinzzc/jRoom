@@ -94,5 +94,5 @@ A jquery plugin to create a 3d Room
 
 
 详细请查看 
-[demo页面1](./demo/test1.html)
-[demo页面2](./demo/test2.html)
+[demo页面1-立方体](./demo/test1.html)
+[demo页面2-贴图](./demo/test2.html)
