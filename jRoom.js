@@ -285,10 +285,9 @@
             cube.jTouch({
                 viewLimit: settings.viewLimit || {
                     xMin: -10,
-                    xMax: 10,
-                    yMin: -360,
-                    yMax: 360
-                }
+                    xMax: 10
+                },
+                keyDelta: 1
             });
 
         })();
