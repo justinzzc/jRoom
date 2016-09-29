@@ -8,7 +8,8 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/jRoom.min.js': ['jTouch.js','jRoom.js']
+                    'dist/jRoom.min.js': ['jTouch.js','jRoom.js'],
+                    'dist/jCube.min.js': ['jTouch.js','jCube.js']
                 }
             }
         }

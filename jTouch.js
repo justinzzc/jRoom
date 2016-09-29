@@ -18,6 +18,25 @@
         }
     }
 
+    function adaptCss(name, value) {
+        var keys = [
+            name,
+            '-webkit-' + name,
+            '-moz-' + name,
+            '-o-' + name,
+            '-ms-' + name
+        ];
+
+        var result = {};
+
+        $.each(keys, function (i, v) {
+            result[v] = value;
+        });
+
+
+        return result;
+    }
+
     $.fn.jTouch = function (options) {
 
         var me = this,
@@ -26,34 +45,35 @@
                 keyWatch: true,
                 delay: 50,
                 viewLimit: {
-                    xMin: -10,
-                    xMax: 10,
-                    yMin: -360,
-                    yMax: 360
+                    xMin: undefined,
+                    xMax: undefined,
+                    yMin: undefined,
+                    yMax: undefined
                 },
-                keyDelta:5
+                keyDelta: 5,
+                touchReverse: false
             }, options);
 
         function getAvailableX(x) {
-            x = x % 360;
 
-            if (x <= settings.viewLimit.xMin) {
+            if (typeof  settings.viewLimit.xMin != 'undefined' && x <= settings.viewLimit.xMin) {
                 return settings.viewLimit.xMin;
             }
 
-            if (x >= settings.viewLimit.xMax) {
+            if (typeof  settings.viewLimit.xMax != 'undefined' && x >= settings.viewLimit.xMax) {
                 return settings.viewLimit.xMax;
             }
             return x;
         }
 
         function getAvailableY(y) {
-            y = y % 360;
-            if (y <= settings.viewLimit.yMin) {
+
+            if (typeof  settings.viewLimit.yMin != 'undefined' && y <= settings.viewLimit.yMin) {
                 return settings.viewLimit.yMin;
             }
 
-            if (y >= settings.viewLimit.yMax) {
+
+            if (typeof  settings.viewLimit.yMax != 'undefined' && y >= settings.viewLimit.yMax) {
                 return settings.viewLimit.yMax;
             }
 
@@ -80,7 +100,6 @@
                     viewport.perspective && viewport.el.parent().css('perspective', viewport.perspective * viewport.perspectiveRate);
                 },
                 move: function (coords) {
-
                     if (coords) {
                         if (typeof coords.x === "number")
                             this.x = getAvailableX(coords.x);
@@ -88,13 +107,35 @@
                             this.y = getAvailableY(coords.y);
                     }
                     //console.log('move :x[' + this.x + '],y[' + this.y + ']');
+                    var rev = settings.touchReverse ? -1 : 1;
+                    this.el[0].style[transformProp] = "rotateX(" + (rev * this.x) + "deg) rotateY(" + (rev * this.y) + "deg)";
+                    this.overResetCheck();
+                },
+                aniMove: function (coords) {
+                    this.el.css(adaptCss('transition', 'transform 200ms ease'));
 
-                    this.el[0].style[transformProp] = "rotateX(" + this.x + "deg) rotateY(" + this.y + "deg)";
+                    this.move(coords);
+                },
+                overResetCheck: function () {
+                    /*if (this.x > 360 || this.y > 360) {
+                        var transitionCss = viewport.el.css('transition') || viewport.el.css('-webkit-transition');
+                        viewport.el.css(adaptCss('transition', 'none'));
+                        this.move({
+                            x: viewport.x % 360,
+                            y: viewport.y % 360
+                        });
+                        viewport.el.css(adaptCss('transition', transitionCss));
+                    }*/
                 },
                 reset: function () {
                     this.move({x: 0, y: 0});
                 }
             };
+
+        var animationEnd = 'webkitTransitionEnd mozTransitionEnd oTransitionEnd transitionend';
+        viewport.el.on(animationEnd, function () {
+            viewport.el.css(adaptCss('transition', 'none'));
+        });
 
         viewport.duration = function () {
             return settings.delay || 0;
@@ -104,22 +145,22 @@
             $(document).keydown(function (evt) {
                 switch (evt.keyCode) {
                     case 37: // left
-                        viewport.move({y: viewport.y - settings.keyDelta});
+                        viewport.aniMove({y: viewport.y - settings.keyDelta});
                         break;
 
                     case 38: // up
                         evt.preventDefault();
-                        viewport.move({x: viewport.x + settings.keyDelta});
+                        viewport.aniMove({x: viewport.x + settings.keyDelta});
                         //viewport.changeDistance(viewport.perspectiveRate + 0.1);
                         break;
 
                     case 39: // right
-                        viewport.move({y: viewport.y + settings.keyDelta});
+                        viewport.aniMove({y: viewport.y + settings.keyDelta});
                         break;
 
                     case 40: // down
                         evt.preventDefault();
-                        viewport.move({x: viewport.x - settings.keyDelta});
+                        viewport.aniMove({x: viewport.x - settings.keyDelta});
                         //viewport.changeDistance(viewport.perspectiveRate - 0.1);
                         break;
 

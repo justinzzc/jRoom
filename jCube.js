@@ -4,7 +4,7 @@
 
 (function ($) {
 
-    $.fn.jRoom = function (options) {
+    $.fn.jCube = function (options) {
         var me = this,
             touch = document.ontouchmove !== undefined,
             settings = $.extend(true, {
@@ -26,13 +26,13 @@
                     top: '',
                     bottom: ''
                 },
-                cubeClass: 'room-cube',
+                cubeClass: 'cube',
                 perspectiveRate: 1,
                 viewLimit: {
-                    xMin: -15,
-                    xMax: 15,
-                    yMin: -360,
-                    yMax: 360
+                    xMin: undefined,
+                    xMax: undefined,
+                    yMin: undefined,
+                    yMax: undefined
                 }
             }, options);
 
@@ -120,9 +120,9 @@
 
         function resetCube(width, height) {
             var
-                perspective = width * (1 / 2) * settings.perspectiveRate;
+                perspective = width * 2 * settings.perspectiveRate;
             if (touch) {
-                perspective = width * (2 / 5) * settings.perspectiveRate;
+                perspective = width * 3 * settings.perspectiveRate;
             }
 
             me.css($.extend({
@@ -131,57 +131,57 @@
                     width: width,
                     height: height
                 },
-                adaptCss('perspective', width * (2 / 5) * settings.perspectiveRate)
+                adaptCss('perspective', perspective)
             ));
 
 
-            var wZ = (2 - width / 2), wH = 2 - height / 2;
+            var wZ = width / 2, wH = 2 - height / 2;
 
             cube.surrounds.back.css(
                 $.extend(
                     {
                         width: width,
-                        height: height,
+                        height: height
                     },
-                    adaptCss('transform', 'rotateY(180deg) translateZ(' + wZ + 'px)')
+                    adaptCss('transform', 'rotateY(-180deg) translateZ(' + wZ + 'px)')
                 )
             );
             cube.surrounds.front.css(
                 $.extend({
                         width: width,
-                        height: height,
+                        height: height
                     },
-                    adaptCss('transform', 'translateZ(' + -width / 2 + 'px)')));
+                    adaptCss('transform', ' translateZ(' + wZ + 'px)')));
 
             cube.surrounds.left.css(
                 $.extend({
                         width: width,
-                        height: height,
+                        height: height
                     },
-                    adaptCss('transform', 'rotateY(90deg) translateZ(' + wZ + 'px)')
+                    adaptCss('transform', 'rotateY(-90deg) translateZ(' + wZ + 'px)')
                 ));
 
             cube.surrounds.right.css(
                 $.extend({
                         width: width,
-                        height: height,
+                        height: height
                     },
-                    adaptCss('transform', 'rotateY(-90deg)  translateZ(' + wZ + 'px)')
+                    adaptCss('transform', 'rotateY(90deg)  translateZ(' + wZ + 'px)')
                 ));
 
             cube.surrounds.top.css(
                 $.extend({
                         'width': width,
-                        'height': width,
+                        'height': width
                     },
-                    adaptCss('transform', 'rotateX(-90deg)  translateZ(' + wZ + 'px)')
+                    adaptCss('transform', 'rotateX(90deg)  translateZ(' + wZ + 'px)')
                 ));
             cube.surrounds.bottom.css(
                 $.extend({
                         'width': width,
-                        'height': width,
+                        'height': width
                     },
-                    adaptCss('transform', 'rotateX(90deg) translateZ(' + wZ + 'px)')
+                    adaptCss('transform', 'rotateX(-90deg) translateZ(' + wZ + 'px)')
                 ));
 
             setWallWithInput(cube.surrounds.back, settings.cube.back);
@@ -243,20 +243,10 @@
         }
 
         function initCube() {
-            var initSize = {
-                width: settings.wallWidth,
-                height: settings.wallHeight
-            };
-            var wSize = {
-                width: $(window).width(),
-                height: $(window).height()
-            };
-            var size = Math.max(wSize.width, wSize.height);
 
-            var width = size,
-                height = Math.floor(size * initSize.height / initSize.width) + 1;
-            width = Math.sqrt(width * width + height * height);
-            height = Math.floor(width * initSize.height / initSize.width) + 1;
+
+            var width = settings.wallWidth,
+                height = settings.wallHeight;
 
             me.css($.extend({
                     position: 'absolute',
@@ -266,7 +256,7 @@
                     marginTop: -height / 2,
                     width: width,
                     height: height,
-                    backfaceVisibility: 'hidden'
+                    //backfaceVisibility: 'hidden'
                 },
                 adaptCss('perspectiveOrigin', ['50%', '50%'].join(' '))
             ));
@@ -279,16 +269,10 @@
         (function init() {
 
             initCube();
-            $(window).on('resize', function () {
-                initCube();
-            });
             cube.jTouch({
-                viewLimit: settings.viewLimit || {
-                    xMin: -10,
-                    xMax: 10,
-                    yMin: -360,
-                    yMax: 360
-                }
+                viewLimit: settings.viewLimit,
+                touchReverse: true,
+                keyDelta: 20
             });
 
         })();
