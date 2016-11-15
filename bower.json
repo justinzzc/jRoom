@@ -1,0 +1,21 @@
+{
+  "name": "jRoom",
+  "description": "A jquery plugin to create a 3d Room 一个可以创建3d房间的jquery插件",
+  "main": "jRoom.js",
+  "authors": [
+    "zzc"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "3d",
+    "room"
+  ],
+  "homepage": "https://github.com/justinzzc/jRoom",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
